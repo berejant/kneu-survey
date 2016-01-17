@@ -18,6 +18,8 @@ class CreateTeachersTable extends Migration {
 			$table->text('first_name');
 			$table->text('middle_name');
 			$table->text('last_name');
+			$table->text('link');
+			$table->text('photo');
 			$table->timestamps();
 			$table->softDeletes();
 		});
