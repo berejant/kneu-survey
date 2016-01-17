@@ -10,6 +10,10 @@ class Teacher extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ['id', 'first_name', 'middle_name', 'last_name', 'link', 'photo'];
+
+    public $incrementing = false;
+
     public function questionnaires()
     {
         return $this->hasMany('Kneu\Survey\Questionnaire');

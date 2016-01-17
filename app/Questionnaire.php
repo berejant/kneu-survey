@@ -7,6 +7,8 @@ class Questionnaire extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['academic_year', 'semester', 'student_id', 'teacher_id'];
+
     public function answers()
     {
         return $this->hasMany('Kneu\Survey\Answer');
