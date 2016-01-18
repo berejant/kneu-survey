@@ -87,7 +87,7 @@ class Import extends Command
             }
 
             $teacher->fill($item);
-            $teacher->trashed() ? $teacher->restore() : $teacher->save();
+            $teacher->trashed() ? $teacher->restore() : $teacher->touch();
         }
 
         Teacher::where('updated_at', '<', $this->startDatetime)->delete();
