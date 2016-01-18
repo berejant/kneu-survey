@@ -1,0 +1,11 @@
+{
+  "name": "survey",
+  "description": "KNEU Survey project based on The Laravel Framework.",
+  "authors": [
+    "Anton Berezhnoj <berejant@gmail.com>"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6"
+  }
+}
