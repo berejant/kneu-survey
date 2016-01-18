@@ -5,7 +5,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
-
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
