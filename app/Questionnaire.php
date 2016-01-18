@@ -9,6 +9,10 @@ class Questionnaire extends Model
 
     protected $fillable = ['academic_year', 'semester', 'student_id', 'teacher_id'];
 
+    protected $casts = [
+        'is_completed' => 'boolean',
+    ];
+
     public function answers()
     {
         return $this->hasMany('Kneu\Survey\Answer');

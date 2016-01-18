@@ -79,18 +79,15 @@ class Import extends Command
 
         $response = $this->client->get('teachers.json');
 
-        $teacherWithTrashed = Teacher::withTrashed();
-
         foreach (json_decode($response->getBody(), true) as $item) {
             /** @var Teacher $teacher */
-            $teacher = $teacherWithTrashed->find($item['id']);
+            $teacher = Teacher::withTrashed()->find($item['id']);
             if (!$teacher) {
                 $teacher = new Teacher;
             }
 
             $teacher->fill($item);
-            $teacher->restore();
-            $teacher->save();
+            $teacher->trashed() ? $teacher->restore() : $teacher->save();
         }
 
         Teacher::where('updated_at', '<', $this->startDatetime)->delete();
@@ -122,6 +119,7 @@ class Import extends Command
                     'student_id' => $student->id,
                     'teacher_id' => $teacherId,
                 ]);
+                $questionnaire->save();
             }
         }
 

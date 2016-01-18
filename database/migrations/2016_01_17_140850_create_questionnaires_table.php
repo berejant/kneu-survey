@@ -19,6 +19,7 @@ class CreateQuestionnairesTable extends Migration {
 			$table->unsignedInteger('teacher_id');
 			$table->mediumInteger('academic_year')->unsigned();
 			$table->tinyInteger('semester')->unsigned();
+			$table->tinyInteger('is_completed')->unsigned();
 			$table->foreign('student_id')->references('id')->on('students');
 			$table->foreign('teacher_id')->references('id')->on('teachers');
 		});
