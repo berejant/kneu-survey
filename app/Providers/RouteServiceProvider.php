@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -25,6 +26,8 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
 		$router->model('student', 'Kneu\Survey\Student');
+
+		URL::setRootControllerNamespace($this->namespace);
 	}
 
 	/**

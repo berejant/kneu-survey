@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class Student extends Model
 {
@@ -14,6 +15,8 @@ class Student extends Model
         'is_completed' => 'boolean',
     ];
 
+    protected $secret;
+
     public function questionnaires()
     {
         return $this->hasMany('Kneu\Survey\Questionnaire');
@@ -25,7 +28,7 @@ class Student extends Model
 
         $collection = new Collection();
 
-        foreach($this->questionnaires as $questionnaire) {
+        foreach ($this->questionnaires as $questionnaire) {
             /** @var Questionnaire $questionnaire */
             $collection->add($questionnaire->teacher);
         }
@@ -38,7 +41,7 @@ class Student extends Model
         $this->is_completed = $forceIsCompleted;
 
         // если нам не передано is_completed = false -> то проверяем по анкетам-потомкам
-        if($this->is_completed) {
+        if ($this->is_completed) {
             $this->load('questionnaires');
 
             /** @var Questionnaire $questionnaire */
@@ -52,6 +55,35 @@ class Student extends Model
 
         $this->save();
         return $this->is_completed;
+    }
+
+    public function getSecret()
+    {
+        if (!$this->secret) {
+            $salt = Config::get('student.secret_salt');
+            $string = sprintf($salt, $this->id);
+            $this->secret = md5($string);
+        }
+
+        return $this->secret;
+    }
+
+    /**
+     * @return Questionnaire|null
+     */
+    public function getFirstNotCompletedQuestionnaire()
+    {
+        $questionnaire = $this->questionnaires()->where('is_completed', '=', false)->first();
+
+        /**
+         * Проверка целостности данных.
+         * Если не найдена незаполненная анкета - то значит все анкеты заполнены.
+         */
+        if(!$questionnaire && !$this->is_completed ) {
+            $this->checkIsCompleted();
+        }
+
+        return $questionnaire;
     }
 
 }

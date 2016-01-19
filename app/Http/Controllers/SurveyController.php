@@ -10,12 +10,40 @@ use Kneu\Survey\Teacher;
 
 class SurveyController extends Controller {
 
-	/**
-	 * @return Response
-	 */
-	public function index(Student $student)
+	public function __construct()
 	{
-
+		$this->middleware('Kneu\Survey\Http\Middleware\StudentAuth');
 	}
 
+	/**
+	 * @var Student $student
+	 * @return Response
+	 */
+	public function getIndex(Student $student)
+	{
+		return view('survey.index', ['student' => $student]);
+	}
+
+	/**
+	 * @var Student $student
+	 * @return Response
+	 */
+	public function getNext(Student $student)
+	{
+		$quuestionnaire = $student->getFirstNotCompletedQuestionnaire();
+
+		if(!$quuestionnaire) {
+			return redirect()->action('SurveyController@getFinish', [
+				'student' => $student,
+				'secret' => $student->getSecret()
+			]);
+		}
+
+		return view('quuestionnaire', ['student' => $student]);
+	}
+
+	public function getFinish(Student $student)
+	{
+		return view('finish', ['student' => $student]);
+	}
 }

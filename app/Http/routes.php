@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/{student}', 'SurveyController@index');
+Route::controller('/{student}/{secret}', 'SurveyController');
 
 Route::get('/studentsNotComplete.json', function () {
     $ids = \Kneu\Survey\Student::where('is_complete', '=', false)->lists('id');
