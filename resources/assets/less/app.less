@@ -3,6 +3,74 @@
 @import "../bower/bootswatch/paper/bootswatch";
 @import (inline) "../bower/animate.css/animate.css";
 
+@font-size-base: 14px;
+
+@page-header-coefficient: 0.3;
+
+.page-header {
+  padding-bottom: (((@line-height-computed / 2) - 1) * @page-header-coefficient);
+  margin: ((@line-height-computed * 2) * @page-header-coefficient) 0 (@line-height-computed * @page-header-coefficient);
+}
+
 .container.animate {
   display: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.teacher {
+  .make-row();
+  padding-bottom: 15px;
+
+  .photo {
+    .make-xs-column(2);
+  }
+
+  .info {
+    .make-xs-column(10);
+    padding-top: 25px;
+  }
+
+
+  position: relative;
+  .skip {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+  }
+}
+
+.quuestionnaire {
+  .control-label {
+    font-weight: bold;
+    font-size: @font-size-base * 1.14285714;
+  }
+}
+
+.finish-footer {
+  .make-row();
+
+  .content {
+    .make-xs-column(6);
+    .make-xs-column-offset(3);
+    .text-center;
+  }
+
+  .restart-form {
+    .make-xs-column(3);
+    .text-right;
+  }
+
+  .btn-exit {
+    .btn;
+    .btn-primary;
+    .btn-lg;
+  }
+
+  .btn-restart {
+    .btn;
+    .btn-default;
+  }
 }

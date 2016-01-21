@@ -2,7 +2,7 @@
 
 use Closure;
 
-class StudentAuth {
+class StudentAuthenticate {
 
 	/**
 	 * Handle an incoming request.

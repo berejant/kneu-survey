@@ -113,13 +113,12 @@ class Import extends Command
             $student->save();
 
             foreach ($item['teachers'] as $teacherId) {
-                $questionnaire = Questionnaire::firstOrCreate([
+                Questionnaire::firstOrCreate([
                     'academic_year' => $academicYear,
                     'semester' => $semester,
                     'student_id' => $student->id,
                     'teacher_id' => $teacherId,
                 ]);
-                $questionnaire->save();
             }
         }
 

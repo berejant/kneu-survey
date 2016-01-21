@@ -12,12 +12,15 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
-
-    mix.scripts([
-        '../bower/jquery/dist/jquery.js',
-        '../bower/bootstrap/dist/js/bootstrap.js',
-        'survey.js'
-    ], 'public/js/vendor.js');
-
+    mix
+        .less('app.less')
+        .scripts([
+            '../bower/jquery/dist/jquery.js',
+            '../bower/bootstrap/dist/js/bootstrap.js',
+            'survey.js'
+        ], 'public/js/vendor.js')
+        .copy(
+            'resources/assets/bower/bootstrap/fonts',
+            'public/fonts'
+        );
 });

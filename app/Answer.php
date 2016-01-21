@@ -2,10 +2,19 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Answer
+ * @package Kneu\Survey
+ * @property Questionnaire $questionnaire
+ * @property Question $question
+ * @property QuestionChoiceOption $questionChoiceOption
+ */
 class Answer extends Model
 {
 
     public $timestamps = false;
+
+    protected $fillable = ['questionnaire_id', 'question_id'];
 
     public function question()
     {
@@ -20,6 +29,32 @@ class Answer extends Model
     public function questionChoiceOption()
     {
         return $this->belongsTo('Kneu\Survey\QuestionChoiceOption');
+    }
+
+    public function saveValue($value)
+    {
+        $value = $value ? trim($value) : '';
+
+        if(!$value) {
+            $this->delete();
+            return false;
+        }
+
+        switch($this->question->type) {
+            case 'text':
+                $this->text = $value;
+                break;
+
+            case 'choice':
+                /** @var QuestionChoiceOption $questionChoiceOption */
+                $questionChoiceOption = QuestionChoiceOption::findOrFail($value);
+                $this->questionChoiceOption()->associate($questionChoiceOption);
+                break;
+        }
+
+        $this->save();
+
+        return true;
     }
 
 }

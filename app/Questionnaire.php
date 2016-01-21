@@ -1,7 +1,15 @@
 <?php namespace Kneu\Survey;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class Questionnaire
+ * @package Kneu\Survey
+ * @property Collection $answers
+ * @property Student $student
+ * @property Teacher $teacher
+ */
 class Questionnaire extends Model
 {
 

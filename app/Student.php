@@ -4,9 +4,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
+/**
+ * Class Student
+ * @package Kneu\Survey
+ * @property Collection $questionnaires
+ */
 class Student extends Model
 {
-
     public $timestamps = false;
 
     public $incrementing = false;
@@ -22,6 +26,9 @@ class Student extends Model
         return $this->hasMany('Kneu\Survey\Questionnaire');
     }
 
+    /**
+     * @return Collection
+     */
     public function getTeachers()
     {
         $this->load('questionnaires.teacher');
@@ -36,6 +43,10 @@ class Student extends Model
         return $collection;
     }
 
+    /**
+     * @param bool $forceIsCompleted
+     * @return bool
+     */
     public function checkIsCompleted($forceIsCompleted = true)
     {
         $this->is_completed = $forceIsCompleted;
@@ -57,6 +68,9 @@ class Student extends Model
         return $this->is_completed;
     }
 
+    /**
+     * @return string
+     */
     public function getSecret()
     {
         if (!$this->secret) {

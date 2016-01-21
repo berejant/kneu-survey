@@ -3,14 +3,6 @@
 @section('title', 'Анкетування студентів')
 
 @section('content')
-    <div class="page-header">
-        <div class="pull-left" style="padding: 8px 24px 0 0">
-            <img src="/img/feu.jpg" />
-        </div>
-
-        <h1>Анкетування студентів ФЕтаУ<br /><small>анонімне опитування студентської думки</small></h1>
-    </div>
-
     <div class="jumbotron">
         <h3>Шановний студенте!</h3>
         <p class="text-justify">
@@ -30,10 +22,7 @@
         </p>
 
         <p class="text-center" style="margin:50px 0 0 0;">
-            <a class="btn btn-primary btn-lg" href="{{URL::action('SurveyController@getNext', [
-                'student' => $student,
-                'secret' => $student->getSecret()
-            ])}}" role="button">Розпочати анкетування</a>
+            <a class="btn btn-primary btn-lg" href="{{URL::action('SurveyController@getNext', [$student,  $student->getSecret()])}}" role="button">Розпочати анкетування</a>
         </p>
     </div>
 @stop

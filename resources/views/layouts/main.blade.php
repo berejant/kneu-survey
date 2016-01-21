@@ -11,6 +11,15 @@
 </head>
 <body>
 <div class="container animate">
+    <div class="page-header">
+        <div class="pull-left" style="padding: 8px 24px 0 0">
+            <img src="/img/feu.jpg" />
+        </div>
+
+        <h1>Анкетування студентів ФЕтаУ<br /><small>анонімне опитування студентської думки</small><br /></h1>
+    </div>
+
+    <div class="clearfix"></div>
     @yield('content')
 </div>
 </body>
