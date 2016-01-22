@@ -17,7 +17,7 @@ $question->choiceOptions()
     <div class="radio">
         <label>
             <input type="radio" name="answers[{{$question->id}}]" id="answers_{{$choiceOption->id}}]" value="{{$choiceOption->id}}"
-                   @if($answer && $choiceOption->id === $answer->questionChoiceOption->id) checked="checked"@endif>
+                   @if($answer && $choiceOption->id === $answer->question_choice_option_id) checked="checked"@endif>
             {{$choiceOption->text}}
         </label>
     </div>

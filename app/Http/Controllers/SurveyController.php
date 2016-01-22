@@ -21,6 +21,12 @@ class SurveyController extends Controller {
 	 */
 	public function getIndex(Student $student)
 	{
+		if($student->is_completed) {
+			return redirect()->action('SurveyController@getFinish', [
+				$student, $student->getSecret()
+			]);
+		}
+
 		return view('survey.index', ['student' => $student]);
 	}
 

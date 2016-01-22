@@ -7,8 +7,8 @@ use \Illuminate\Support\Facades\Config;
 
 @section('content')
     <div class="jumbotron">
-        <h3>Шановний студенте!</h3>
-        <p class="text-justify">
+        <h3 class="col-xs-offset-3">Шановний студенте!</h3>
+        <p class="text-justify col-xs-offset-3">
             Дякую за участь в опитуванні!<br />
             Ваша думка буде врахована.<br />
             Бажаю наснаги та успіхів у навчанні!<br />
