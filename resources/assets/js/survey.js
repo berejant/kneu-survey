@@ -19,4 +19,21 @@ $(function() {
     });
 
     $('#restart').tooltip();
+
+    var $form = $('#questionnaire');
+    var $saveButton = $form.find(':button[name="save"]');
+    var checkFormCanSubmit = function () {
+        var disableSave = true;
+        $.each($form.find(':input:visible').serializeArray(), function () {
+            if ($.trim(this.value)) {
+                disableSave = false;
+                return false;
+            }
+        });
+
+        $saveButton.prop('disabled', disableSave);
+    };
+
+    $form.on('change keyup', ':input', checkFormCanSubmit);
+    checkFormCanSubmit();
 });

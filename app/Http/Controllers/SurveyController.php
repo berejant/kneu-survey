@@ -1,62 +1,86 @@
 <?php namespace Kneu\Survey\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Kneu\Survey\Answer;
 use Kneu\Survey\Http\Requests;
 
 use Kneu\Survey\Question;
 use Kneu\Survey\Questionnaire;
 use Kneu\Survey\Student;
+use Kneu\Survey\Teacher;
 
 class SurveyController extends Controller {
 
-	public function __construct()
+	/**
+	 * @var Student|null
+	 */
+	protected $student;
+
+	/**
+	 * SurveyController constructor.
+	 * @param Request $request
+     */
+	public function __construct(Request $request)
 	{
-		$this->middleware('Kneu\Survey\Http\Middleware\StudentAuthenticate');
+		$studentId = $request->session()->get('studentId');
+		$this->student = $studentId ? Student::find($studentId) : null;
+
+		list($controller, $actionName) = explode('@', $request->route()->getActionName());
+		if(!$this->student && $actionName != 'auth') {
+			abort(401);
+		}
 	}
+
 
 	/**
 	 * @var Student $student
 	 * @return Response
 	 */
-	public function getIndex(Student $student)
+	public function auth(Request $request, Student $student, $secret)
 	{
-		if($student->is_completed) {
-			return redirect()->action('SurveyController@getFinish', [
-				$student, $student->getSecret()
-			]);
+		if( $student->getSecret() === $secret) {
+			$request->session()->put('studentId', $student->id);
+		} else {
+			return abort(401);
 		}
 
-		return view('survey.index', ['student' => $student]);
+		return redirect()->route('survey.start');
 	}
 
 	/**
-	 * @var Student $student
 	 * @return Response
 	 */
-	public function getNext(Student $student)
+	public function start()
 	{
-		$quuestionnaire = $student->getFirstNotCompletedQuestionnaire();
-
-		if(!$quuestionnaire) {
-			return redirect()->action('SurveyController@getFinish', [
-				$student, $student->getSecret()
-			]);
+		if($this->student->is_completed) {
+			return redirect()->action('survey.finish');
 		}
 
-		$teacher = $quuestionnaire->teacher;
+		return view('survey.index', [
+			'student' => $this->student,
+			'questionnaireUrl' => $this->getNextQuestionnaireUrl(),
+		]);
+	}
+
+	public function questionnaire (Teacher $teacher)
+	{
+		$student = $this->student;
+		$questionnaire = $student->questionnaires()->where('teacher_id', '=', $teacher->id)->first();
+
 		$questions = Question::all();
-		$answers = $quuestionnaire->answers->keyBy('question_id');
+		$answers = $questionnaire->answers->keyBy('question_id');
+		$statistics = $student->getSurveyStatistics();
 
 		return view(
-			'survey.quuestionnaire',
-			compact('quuestionnaire', 'teacher', 'student', 'questions', 'answers')
+			'survey.questionnaire',
+			compact('questionnaire', 'teacher', 'student', 'questions', 'answers', 'statistics')
 		);
 	}
 
-	public function postQuuestionnaire(Request $request, Student $student)
+	public function saveQuestionnaire(Request $request)
 	{
-		$questionnaire = $student->questionnaires()->find($request->input('questionnaire_id'));
+		$questionnaire = $this->student->questionnaires()->find($request->input('questionnaire_id'));
 
 		if(!$questionnaire) {
 			abort(402);
@@ -90,32 +114,35 @@ class SurveyController extends Controller {
 
 		$questionnaire->save();
 
-		return $this->redirectNext($student);
+		return redirect($this->getNextQuestionnaireUrl());
 	}
 
-
-	public function getFinish(Student $student)
+	public function finish()
 	{
-		return view('survey.finish', ['student' => $student]);
+		return view('survey.finish');
 	}
 
-	public function postRestart(Request $request, Student $student)
+	public function restart(Request $request, Student $student)
 	{
 		if($request->input('restart')) {
 			/** @var Questionnaire $questionnaire */
-			foreach($student->questionnaires as $questionnaire)
+			foreach($this->student->questionnaires as $questionnaire)
 			{
 				$questionnaire->is_completed = false;
 				$questionnaire->save();
 			}
 		}
 
-		return $this->redirectNext($student);
+		return redirect($this->getNextQuestionnaireUrl());
 	}
 
-	protected function redirectNext ($student) {
-		return redirect()->action('SurveyController@getNext', [
-			$student, $student->getSecret()
-		]);
+	protected function getNextQuestionnaireUrl () {
+		$questionnaire = $this->student->getFirstNotCompletedQuestionnaire();
+
+		if($questionnaire) {
+			return URL::route('survey.questionnaire', [$questionnaire->teacher]);
+		} else {
+			return URL::route('survey.finish');
+		}
 	}
 }

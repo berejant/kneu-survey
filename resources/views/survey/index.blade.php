@@ -22,7 +22,7 @@
         </p>
 
         <p class="text-center" style="margin:50px 0 0 0;">
-            <a class="btn btn-primary btn-lg" href="{{URL::action('SurveyController@getNext', [$student,  $student->getSecret()])}}" role="button">Розпочати анкетування</a>
+            <a class="btn btn-primary btn-lg" href="{{$questionnaireUrl}}" role="button">Розпочати анкетування</a>
         </p>
     </div>
 @stop

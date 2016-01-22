@@ -21,6 +21,11 @@ class Student extends Model
 
     protected $secret;
 
+    /**
+     * @var \stdClass
+     */
+    protected $surveyStatistics;
+
     public function questionnaires()
     {
         return $this->hasMany('Kneu\Survey\Questionnaire');
@@ -99,5 +104,17 @@ class Student extends Model
 
         return $questionnaire;
     }
+
+    public function getSurveyStatistics()
+    {
+        if(!$this->surveyStatistics) {
+            $this->surveyStatistics = $stats = new \stdClass;
+            $stats->total = $this->questionnaires()->count();
+            $stats->completed = $this->questionnaires()->where('is_completed', '=', true)->count();
+        }
+
+        return $this->surveyStatistics;
+    }
+
 
 }

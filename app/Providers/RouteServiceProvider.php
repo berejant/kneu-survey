@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
 		$router->model('student', 'Kneu\Survey\Student');
+		$router->model('teacher', 'Kneu\Survey\Teacher');
 
 		URL::setRootControllerNamespace($this->namespace);
 	}

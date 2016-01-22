@@ -31,7 +31,7 @@ use \Illuminate\Support\Facades\Config;
                 </a>
             </div>
 
-            <form class="restart-form" method="post" action="{{URL::action('SurveyController@postRestart', [$student,  $student->getSecret()])}}">
+            <form class="restart-form" method="post" action="{{URL::route('survey.restart')}}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button type="submit" class="btn-restart" name="restart" id="restart" value="1" title="Для коригування відповідей або заповнення анкети заново">
                     Редагувати відповіді

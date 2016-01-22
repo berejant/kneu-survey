@@ -12,10 +12,10 @@
 
 @section('content')
 
-    <form method="post" id="quuestionnaire" class="quuestionnaire"
-          action="{{URL::action('SurveyController@postQuuestionnaire', [$student,  $student->getSecret()])}}">
+    <form method="post" id="questionnaire" class="questionnaire"
+          action="{{URL::route('survey.saveQuestionnaire')}}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="questionnaire_id" value="{{$quuestionnaire->id}}">
+        <input type="hidden" name="questionnaire_id" value="{{$questionnaire->id}}">
         <fieldset>
             <legend class="teacher">
                 <div class="photo">
@@ -45,6 +45,10 @@
                     </button>
                 </div>
 
+                <div class="statistics">
+                    {{$statistics->completed + 1}} / {{$statistics->total}}
+                </div>
+
             </legend>
 
             @foreach($questions as $index => $question)
@@ -54,7 +58,7 @@
 
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" name="save" class="btn btn-primary">
                         Зберегти анкету
                         <i class="glyphicon glyphicon-ok"></i>
                     </button>
