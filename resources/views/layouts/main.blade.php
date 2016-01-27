@@ -12,11 +12,11 @@
 <body>
 <div class="container animate">
     <div class="page-header">
-        <div class="pull-left" style="padding: 8px 24px 0 0">
-            <img src="/img/feu.jpg" />
-        </div>
+        <div class="faculty-icon"></div>
 
-        <h1>Анкетування студентів ФЕтаУ<br /><small>анонімне опитування студентської думки</small><br /></h1>
+        <h1>Анкетування студентів ФЕтаУ<small>анонімне опитування студентської думки</small></h1>
+
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>

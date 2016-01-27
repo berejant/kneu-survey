@@ -87,6 +87,9 @@ class Import extends Command
             }
 
             $teacher->fill($item);
+            if (starts_with($teacher->photo, 'http://')) {
+                $teacher->photo = substr($teacher->photo, 5);
+            }
             $teacher->trashed() ? $teacher->restore() : $teacher->touch();
         }
 

@@ -7,19 +7,19 @@ use \Illuminate\Support\Facades\Config;
 
 @section('content')
     <div class="jumbotron">
-        <h3 class="col-xs-offset-3">Шановний студенте!</h3>
-        <p class="text-justify col-xs-offset-3">
+        <h3 class="col-sm-offset-3">Шановний студенте!</h3>
+        <p class="text-justify col-sm-offset-3">
             Дякую за участь в опитуванні!<br />
             Ваша думка буде врахована.<br />
-            Бажаю наснаги та успіхів у навчанні!<br />
+            Бажаю <span class="hidden-xs"> наснаги</span> та успіхів у навчанні!<br />
         </p>
-        <p class="text-justify col-xs-offset-7">
+        <p class="text-left col-xs-offset-1 col-sm-offset-7">
             Дякую за небайдужість,<br />
-            декан факультету Востряков О.В.
+            декан&nbsp;факультету Востряков&nbsp;О.В.
         </p>
 
-        <p class="text-justify">
-            <span class="label label-warning">Увага!</span> <strong>Анонімність гарантується!</strong><br />
+        <p class="text-left">
+            <span class="label label-warning">Увага!</span> <strong>Анонімність&nbsp;гарантується!</strong><br />
             <small>Жоден викладач або співробітник факультету не дізнається, ким саме було надіслано анкету.</small>
         </p>
 

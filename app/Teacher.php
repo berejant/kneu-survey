@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Teacher
  * @package Kneu\Survey
  * @property Collection $questionnaires
+ * @property integer $id
+ * @property string $first_name
+ * @property string $middle_name
+ * @property string $last_name
+ * @property string photo
  */
 class Teacher extends Model
 {

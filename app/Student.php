@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
  * Class Student
  * @package Kneu\Survey
  * @property Collection $questionnaires
+ * @property bool is_completed
  */
 class Student extends Model
 {
@@ -26,6 +27,9 @@ class Student extends Model
      */
     protected $surveyStatistics;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function questionnaires()
     {
         return $this->hasMany('Kneu\Survey\Questionnaire');

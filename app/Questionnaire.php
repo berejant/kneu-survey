@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property Collection $answers
  * @property Student $student
  * @property Teacher $teacher
+ * @property integer id
+ * @property bool is_completed
  */
 class Questionnaire extends Model
 {

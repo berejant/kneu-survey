@@ -11,13 +11,13 @@
             Результати анкетування дозволять здійснити моніторинг роботи викладачів.<br />
             Сподіваюсь на Вашу об’єктивність та зваженість Ваших відповідей.<br />
         </p>
-        <p class="text-justify col-xs-offset-7">
+        <p class="text-left col-xs-offset-6">
             Дякую за небайдужість,<br />
-            декан факультету Востряков О.В.
+            декан&nbsp;факультету Востряков&nbsp;О.В.
         </p>
 
-        <p class="text-justify">
-            <span class="label label-warning">Увага!</span> <strong>Анонімність гарантується!</strong><br />
+        <p class="text-left">
+            <span class="label label-warning">Увага!</span> <strong>Анонімність&nbsp;гарантується!</strong><br />
             <small>Жоден викладач або співробітник факультету не дізнається, ким саме було надіслано анкету.</small>
         </p>
 

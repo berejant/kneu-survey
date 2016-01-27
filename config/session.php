@@ -109,7 +109,7 @@ return [
 	|
 	*/
 
-	'cookie' => 'laravel_session',
+	'cookie' => 'survey_session',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -147,7 +147,7 @@ return [
 	| the cookie from being sent to you if it can not be done securely.
 	|
 	*/
-
-	'secure' => false,
+	'http_only' => true,
+	'secure' => true,
 
 ];

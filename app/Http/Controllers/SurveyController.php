@@ -3,17 +3,17 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Kneu\Survey\Answer;
-use Kneu\Survey\Http\Requests;
 
 use Kneu\Survey\Question;
 use Kneu\Survey\Questionnaire;
 use Kneu\Survey\Student;
 use Kneu\Survey\Teacher;
+use Symfony\Component\HttpFoundation\Response;
 
 class SurveyController extends Controller {
 
 	/**
-	 * @var Student|null
+	 * @var Student
 	 */
 	protected $student;
 
@@ -23,29 +23,13 @@ class SurveyController extends Controller {
      */
 	public function __construct(Request $request)
 	{
-		$studentId = $request->session()->get('studentId');
-		$this->student = $studentId ? Student::find($studentId) : null;
+		if( $studentId = $request->session()->get('studentId') ) {
+			$this->student = Student::find($studentId);
+		}
 
-		list($controller, $actionName) = explode('@', $request->route()->getActionName());
-		if(!$this->student && $actionName != 'auth') {
+		if(!$this->student) {
 			abort(401);
 		}
-	}
-
-
-	/**
-	 * @var Student $student
-	 * @return Response
-	 */
-	public function auth(Request $request, Student $student, $secret)
-	{
-		if( $student->getSecret() === $secret) {
-			$request->session()->put('studentId', $student->id);
-		} else {
-			return abort(401);
-		}
-
-		return redirect()->route('survey.start');
 	}
 
 	/**
@@ -54,7 +38,7 @@ class SurveyController extends Controller {
 	public function start()
 	{
 		if($this->student->is_completed) {
-			return redirect()->action('survey.finish');
+			return redirect()->route('survey.finish');
 		}
 
 		return view('survey.index', [
@@ -66,6 +50,7 @@ class SurveyController extends Controller {
 	public function questionnaire (Teacher $teacher)
 	{
 		$student = $this->student;
+		/** @var Questionnaire $questionnaire */
 		$questionnaire = $student->questionnaires()->where('teacher_id', '=', $teacher->id)->first();
 
 		$questions = Question::all();
@@ -80,6 +65,7 @@ class SurveyController extends Controller {
 
 	public function saveQuestionnaire(Request $request)
 	{
+		/** @var Questionnaire $questionnaire */
 		$questionnaire = $this->student->questionnaires()->find($request->input('questionnaire_id'));
 
 		if(!$questionnaire) {
@@ -122,7 +108,7 @@ class SurveyController extends Controller {
 		return view('survey.finish');
 	}
 
-	public function restart(Request $request, Student $student)
+	public function restart(Request $request)
 	{
 		if($request->input('restart')) {
 			/** @var Questionnaire $questionnaire */

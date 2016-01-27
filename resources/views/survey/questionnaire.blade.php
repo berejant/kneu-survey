@@ -56,13 +56,11 @@
                 @include('survey.question.' . $question->type)
             @endforeach
 
-            <div class="form-group">
-                <div class="col-lg-10 col-lg-offset-2">
-                    <button type="submit" name="save" class="btn btn-primary">
-                        Зберегти анкету
-                        <i class="glyphicon glyphicon-ok"></i>
-                    </button>
-                </div>
+            <div class="footer">
+                <button type="submit" name="save" class="save">
+                    Зберегти анкету
+                    <i class="glyphicon glyphicon-ok"></i>
+                </button>
             </div>
         </fieldset>
 
@@ -80,7 +78,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Ні, продовжити</button>
-                        <button type="submit" class="btn btn-primary" name="skip" value="1">Так, перейти до наступного викладача</button>
+                        <button type="submit" class="btn btn-primary" name="skip" value="1">Так<span class="hidden-xs">, перейти до наступного викладача</span></button>
                     </div>
                 </div>
             </div>

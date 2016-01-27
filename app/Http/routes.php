@@ -12,7 +12,7 @@
 */
 
 Route::get('/{student}/{secret}/', [
-    'as' => 'survey.auth', 'uses' => 'SurveyController@auth'
+    'as' => 'survey.auth', 'uses' => 'StudentAuthController@auth'
 ]);
 
 Route::get('/', [
