@@ -8,6 +8,6 @@
     "jquery": "~2.2.0",
     "bootstrap": "~3.3.6",
     "animate.css": "~3.5.1",
-    "bootswatch": "master"
+    "bootswatch": "v3.3.6"
   }
 }
