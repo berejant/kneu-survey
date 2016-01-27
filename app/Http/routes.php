@@ -12,7 +12,7 @@
 */
 
 Route::get('/{student}/{secret}/', [
-    'as' => 'survey.auth', 'uses' => 'StudentAuthController@auth'
+    'as' => 'survey.auth', 'uses' => 'StudentController@auth'
 ]);
 
 Route::get('/', [
@@ -36,7 +36,4 @@ Route::post('/restart', [
 ]);
 
 
-Route::get('/studentsNotComplete.json', function () {
-    $ids = \Kneu\Survey\Student::where('is_completed', '=', false)->lists('id');
-    return \Illuminate\Support\Facades\Response::json($ids);
-});
+Route::get('/studentsNotCompleted.json', 'StudentController@notCompletedJson');

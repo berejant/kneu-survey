@@ -4,9 +4,9 @@ namespace Kneu\Survey\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Kneu\Survey\Student;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
 
-class StudentAuthController extends Controller
+class StudentController extends Controller
 {
     /**
      * @param Request $request
@@ -22,5 +22,11 @@ class StudentAuthController extends Controller
         }
 
         return abort(401);
+    }
+
+    public function notCompletedJson ()
+    {
+        $ids = Student::where('is_completed', '=', false)->lists('id');
+        return Response::json($ids);
     }
 }
