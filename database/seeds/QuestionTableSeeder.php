@@ -21,14 +21,14 @@ class QuestionTableSeeder extends Seeder
         DB::table('questions')->delete();
 
         Question::create([
-            'text' => 'Оцініть рівень якості організації та проведення занять викладачем',
+            'text' => 'Ваша Оцінка рівня якості організації та проведення занять викладачем',
             'type' => 'choice',
 
         ])->choiceOptions()->saveMany([
-            new QuestionChoiceOption([ 'text' => 'Високий' ]),
-            new QuestionChoiceOption([ 'text' => 'Задовільний' ]),
-            new QuestionChoiceOption([ 'text' => 'Поганий' ]),
-            new QuestionChoiceOption([ 'text' => 'Мені байдуже' ]),
+            new QuestionChoiceOption([ 'text' => 'Висока' ]),
+            new QuestionChoiceOption([ 'text' => 'Задовільна' ]),
+            new QuestionChoiceOption([ 'text' => 'Погана' ]),
+            new QuestionChoiceOption([ 'text' => 'Утримуюсь від відповіді' ]),
         ]);
 
 
@@ -44,7 +44,7 @@ class QuestionTableSeeder extends Seeder
 
 
         Question::create([
-            'text' => 'Чи критерії отримання балів за картою СРС були доведені на початку занять?',
+            'text' => 'Чи оголошував викладач критерії отримання балів за картою СРС на початку курсу?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Так' ]),
@@ -54,7 +54,7 @@ class QuestionTableSeeder extends Seeder
 
 
         Question::create([
-            'text' => 'Наскільки зміст занять відповідав навчально-методичним матеріалам з даного курсу?',
+            'text' => 'Наскільки зміст занять відповідав навчально-методичним матеріалам курсу?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Повністю відповідав' ]),
@@ -66,7 +66,7 @@ class QuestionTableSeeder extends Seeder
 
 
         Question::create([
-            'text' => 'Кількість відмінених занять, не відпрацьованих в інший час.',
+            'text' => 'Кількість скасованих занять, не відпрацьованих в інший час.',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Жодного' ]),
@@ -80,14 +80,14 @@ class QuestionTableSeeder extends Seeder
             'text' => 'Пунктуальність початку і закінчення занять викладачем.',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
-            new QuestionChoiceOption([ 'text' => 'Вчасно' ]),
+            new QuestionChoiceOption([ 'text' => 'Завжди вчасно' ]),
             new QuestionChoiceOption([ 'text' => 'Зазвичай вчасно' ]),
-            new QuestionChoiceOption([ 'text' => 'Невчасно' ]),
-            new QuestionChoiceOption([ 'text' => 'Чим менше тривалість пари, тим для мене краще' ]),
+            new QuestionChoiceOption([ 'text' => 'Зазвичай невчасно' ]),
+            new QuestionChoiceOption([ 'text' => 'Завджи невчасно' ]),
         ]);
 
         Question::create([
-            'text' => 'Чи проводив викладач консультації в поза аудиторний час?',
+            'text' => 'Чи проводив викладач консультації в позааудиторний час?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Проводив' ]),
@@ -96,7 +96,7 @@ class QuestionTableSeeder extends Seeder
         ]);
 
         Question::create([
-            'text' => 'До якої частини занять, на вашу думку, викладач не був підготовлений?',
+            'text' => 'До якої частини занять, на Вашу думку, викладач не був підготовлений?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Завжди був підготовлений' ]),
@@ -108,7 +108,7 @@ class QuestionTableSeeder extends Seeder
         ]);
 
         Question::create([
-            'text' => 'Чи повідомляв викладач на заняттях тему, план заняття, види робіт до виконання та чи підбивав він підсумки роботи?',
+            'text' => 'Як часто викладач оголошував план заняття та підбивав підсумки?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Завжди' ]),
@@ -119,7 +119,7 @@ class QuestionTableSeeder extends Seeder
         ]);
 
         Question::create([
-            'text' => 'Чи були пояснення викладачем щодо змісту матеріалу зрозумілими?',
+            'text' => 'Як часто роз\'яснення викладача змісту матеріалу були зрозумілими?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
             new QuestionChoiceOption([ 'text' => 'Завжди' ]),
@@ -131,13 +131,13 @@ class QuestionTableSeeder extends Seeder
 
 
         Question::create([
-            'text' => 'Кількість завдань для самостійного виконання під час вивчення дисципліни',
+            'text' => 'На Ваш погляд, кількість самостійних завдань курсу є достатньою?',
             'type' => 'choice',
         ])->choiceOptions()->saveMany([
-            new QuestionChoiceOption([ 'text' => 'Дуже мало' ]),
-            new QuestionChoiceOption([ 'text' => 'Оптимальна' ]),
-            new QuestionChoiceOption([ 'text' => 'Надмірна' ]),
-            new QuestionChoiceOption([ 'text' => 'Мені краще взагалі без завдань для самостійного виконання' ]),
+            new QuestionChoiceOption([ 'text' => 'Ні, недостаньою' ]),
+            new QuestionChoiceOption([ 'text' => 'Так, цілком достатньою' ]),
+            new QuestionChoiceOption([ 'text' => 'Є надмірною' ]),
+            new QuestionChoiceOption([ 'text' => 'Як на мене - краще взагалі без них' ]),
         ]);
 
     }
