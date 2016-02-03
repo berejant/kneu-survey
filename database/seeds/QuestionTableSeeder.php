@@ -20,6 +20,10 @@ class QuestionTableSeeder extends Seeder
         DB::table('question_choice_options')->delete();
         DB::table('questions')->delete();
 
+        DB::statement('ALTER TABLE `answers`   AUTO_INCREMENT = 1;');
+        DB::statement('ALTER TABLE `questions` AUTO_INCREMENT = 1;');
+        DB::statement('ALTER TABLE `question_choice_options` AUTO_INCREMENT = 1;');
+
         Question::create([
             'text' => 'Ваша оцінка рівня якості організації та проведення занять викладачем',
             'type' => 'choice',
@@ -138,6 +142,11 @@ class QuestionTableSeeder extends Seeder
             new QuestionChoiceOption([ 'text' => 'Так, цілком достатньою' ]),
             new QuestionChoiceOption([ 'text' => 'Є надмірною' ]),
             new QuestionChoiceOption([ 'text' => 'Як на мене - краще взагалі без них' ]),
+        ]);
+
+        Question::create([
+            'text' => 'Ваш коментар',
+            'type' => 'text',
         ]);
 
     }
