@@ -21,7 +21,7 @@ class QuestionTableSeeder extends Seeder
         DB::table('questions')->delete();
 
         Question::create([
-            'text' => 'Ваша Оцінка рівня якості організації та проведення занять викладачем',
+            'text' => 'Ваша оцінка рівня якості організації та проведення занять викладачем',
             'type' => 'choice',
 
         ])->choiceOptions()->saveMany([
