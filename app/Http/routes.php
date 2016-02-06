@@ -36,4 +36,4 @@ Route::post('/restart', [
 ]);
 
 
-Route::get('/studentsNotCompleted.json', 'StudentController@notCompletedJson');
+Route::get('/studentsCompleted.json', 'StudentController@completedJson');

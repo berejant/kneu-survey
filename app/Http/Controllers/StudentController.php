@@ -24,9 +24,9 @@ class StudentController extends Controller
         return abort(401);
     }
 
-    public function notCompletedJson ()
+    public function completedJson ()
     {
-        $ids = Student::where('is_completed', '=', false)->lists('id');
+        $ids = Student::where('is_completed', '=', true)->lists('id');
         return Response::json($ids);
     }
 }
