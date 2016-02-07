@@ -24,6 +24,11 @@
 
     <div class="clearfix"></div>
     @yield('content')
+
+    <footer>
+        © 2016 Факультет економiки та управлiння КНЕУ
+        <div id="developer">Розробка: Антон Бережний</div>
+    </footer>
 </div>
 </body>
 </html>
