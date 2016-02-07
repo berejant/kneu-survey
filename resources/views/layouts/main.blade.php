@@ -1,3 +1,6 @@
+<!--
+          © 2016 Developed By Anton Berezhnyi
+-->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -11,13 +14,13 @@
 </head>
 <body>
 <div class="container animate">
-    <div class="page-header">
+    <header>
         <div class="faculty-icon"></div>
 
         <h1>Анкетування студентів ФЕтаУ<small>анонімне опитування студентської думки</small></h1>
 
         <div class="clearfix"></div>
-    </div>
+    </header>
 
     <div class="clearfix"></div>
     @yield('content')

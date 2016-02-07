@@ -7,7 +7,8 @@
 
 @page-header-coefficient: 0.3;
 
-.page-header {
+header {
+  .page-header;
   padding-bottom: (((@line-height-computed / 2) - 1) * @page-header-coefficient);
   margin: ((@line-height-computed * 2) * @page-header-coefficient) 0 (@line-height-computed * @page-header-coefficient);
   
@@ -25,6 +26,15 @@
       display: block;
     }
   }
+}
+
+footer {
+  .text-center;
+  margin-top:    @line-height-computed;
+  padding-top: @line-height-computed / 2;
+  margin-bottom: @line-height-computed / 2;
+  border: 0;
+  border-top: 1px solid @hr-border;
 }
 
 .container.animate {
