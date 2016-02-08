@@ -145,6 +145,16 @@ class QuestionTableSeeder extends Seeder
         ]);
 
         Question::create([
+            'text' => 'Яку кількість занять ви пропустили з цього предмету?',
+            'type' => 'choice',
+        ])->choiceOptions()->saveMany([
+            new QuestionChoiceOption([ 'text' => 'Жодного' ]),
+            new QuestionChoiceOption([ 'text' => 'Одне або два заняття' ]),
+            new QuestionChoiceOption([ 'text' => 'Від трьох до п\'яти занять' ]),
+            new QuestionChoiceOption([ 'text' => 'П\'ять та більше занять' ]),
+        ]);
+
+        Question::create([
             'text' => 'Ваш коментар',
             'type' => 'text',
         ]);
