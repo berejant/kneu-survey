@@ -17,7 +17,7 @@ class Questionnaire extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['academic_year', 'semester', 'student_id', 'teacher_id'];
+    protected $fillable = ['academic_year', 'semester', 'student_id', 'teacher_id', 'rating'];
 
     protected $casts = [
         'is_completed' => 'boolean',

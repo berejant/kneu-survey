@@ -115,13 +115,15 @@ class Import extends Command
             $student->id = $item['id'];
             $student->save();
 
-            foreach ($item['teachers'] as $teacherId) {
-                Questionnaire::firstOrCreate([
+            foreach ($item['teachers'] as $teacherId => $teacherItem) {
+                Questionnaire::firstOrNew([
                     'academic_year' => $academicYear,
                     'semester' => $semester,
                     'student_id' => $student->id,
                     'teacher_id' => $teacherId,
-                ]);
+                ])->fill([
+                    'rating' => $teacherItem['rating'],
+                ])->save();
             }
         }
 
