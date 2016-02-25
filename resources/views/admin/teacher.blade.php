@@ -38,7 +38,7 @@
 
 <div class="row">
     <div class="col-xs-6">
-        <a href="{{URL::route('admin.list')}}" class="btn btn-default">
+        <a href="{{URL::route('admin.list')}}" class="btn btn-default" onclick="document.referrer===this.href?history.back():null;">
             <i class="glyphicon glyphicon-arrow-left"></i>
             Назад до списку
         </a>
