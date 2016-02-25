@@ -85,6 +85,10 @@ class AdminController extends Controller
                     ->whereRaw('questionnaires.id = answers.questionnaire_id')
                     ->whereTeacherId($teacher->id);
             })->get();
+
+            if(!count($textAnswers[ $question->id ])) {
+                unset( $textQuestions[$index], $textAnswers[ $question->id ] );
+            }
         }
 
         return view(
