@@ -18,7 +18,9 @@ class AdminController extends Controller
         $teachers = Teacher::select('teachers.*', 'teacher_results.count')
             ->join('teacher_results', function($join) {
                 $join->on('teachers.id', '=', 'teacher_results.teacher_id')
-                    ->where('teacher_results.type', '=', 'fill');
+                    ->where('teacher_results.type', '=', 'fill')
+                    ->where('teacher_results.academic_year', '=', config('academic.year'))
+                    ->where('teacher_results.semester', '=', config('academic.semester'));
             })
             ->orderBy('count', 'DESC')
             ->get();
