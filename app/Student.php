@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
  * Class Student
  * @package Kneu\Survey
  * @property Collection $questionnaires
+ * @property Collection $questionnairesForSemester
  * @property bool is_completed
  */
 class Student extends Model
@@ -33,6 +34,13 @@ class Student extends Model
     public function questionnaires()
     {
         return $this->hasMany('Kneu\Survey\Questionnaire');
+    }
+
+    public function questionnairesForSemester()
+    {
+        return $this->questionnaires()
+            ->whereAcademicYear(config('academic.year'))
+            ->whereSemester(config('academic.semester'));
     }
 
     /**
@@ -96,7 +104,7 @@ class Student extends Model
      */
     public function getFirstNotCompletedQuestionnaire()
     {
-        $questionnaire = $this->questionnaires()->where('is_completed', '=', false)->first();
+        $questionnaire = $this->questionnairesForSemester()->where('is_completed', '=', false)->first();
 
         /**
          * Проверка целостности данных.
@@ -113,8 +121,8 @@ class Student extends Model
     {
         if(!$this->surveyStatistics) {
             $this->surveyStatistics = $stats = new \stdClass;
-            $stats->total = $this->questionnaires()->count();
-            $stats->completed = $this->questionnaires()->where('is_completed', '=', true)->count();
+            $stats->total = $this->questionnairesForSemester()->count();
+            $stats->completed = $this->questionnairesForSemester()->where('is_completed', '=', true)->count();
         }
 
         return $this->surveyStatistics;

@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
 		'Kneu\Survey\Console\Commands\Inspire',
 		'Kneu\Survey\Console\Commands\Import',
+		'Kneu\Survey\Console\Commands\MakeResultsAll',
 	];
 
 	/**

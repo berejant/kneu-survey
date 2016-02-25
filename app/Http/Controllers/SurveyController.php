@@ -112,7 +112,7 @@ class SurveyController extends Controller {
 	{
 		if($request->input('restart')) {
 			/** @var Questionnaire $questionnaire */
-			foreach($this->student->questionnaires as $questionnaire)
+			foreach($this->student->questionnairesForSemester as $questionnaire)
 			{
 				$questionnaire->is_completed = false;
 				$questionnaire->save();
