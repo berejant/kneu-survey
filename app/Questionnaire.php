@@ -37,4 +37,10 @@ class Questionnaire extends Model
     {
         return $this->belongsTo('Kneu\Survey\Teacher');
     }
+
+    public function questionResults()
+    {
+        return $this->hasMany('Kneu\Survey\QuestionResult');
+    }
+
 }

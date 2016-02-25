@@ -37,3 +37,12 @@ Route::post('/restart', [
 
 
 Route::get('/studentsCompleted.json', 'StudentController@completedJson');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function()
+{
+    Route::get('/', [ 'as' => 'admin.list', 'uses' => 'AdminController@showList' ]);
+
+    Route::get('/teacher/{teacher}', [ 'as' => 'admin.teacher', 'uses' => 'AdminController@teacher' ])
+        ->where('teacher', '[0-9]+');
+
+});

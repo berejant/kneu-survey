@@ -17,7 +17,7 @@
     <header>
         <div class="faculty-icon"></div>
 
-        <h1>Анкетування студентів ФЕтаУ<small>анонімне опитування студентської думки</small></h1>
+        <h1>Анкетування студентів ФЕтаУ<small>@yield('subtitle', 'анонімне опитування студентської думки')</small></h1>
 
         <div class="clearfix"></div>
     </header>

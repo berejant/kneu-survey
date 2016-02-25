@@ -24,4 +24,9 @@ class QuestionChoiceOption extends Model
         return $this->hasMany('Kneu\Survey\Answer');
     }
 
+    public function questionResults()
+    {
+        return $this->hasMany('Kneu\Survey\QuestionResult');
+    }
+
 }

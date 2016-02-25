@@ -6,10 +6,10 @@ namespace Kneu\Survey;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Result
+ * Class QuestionResult
  * @package Kneu\Survey
  */
-class Result extends Model
+class QuestionResult extends Model
 {
     protected $fillable = ['teacher_id', 'question_id', 'question_choice_option_id', 'academic_year', 'semester'];
 
@@ -31,6 +31,15 @@ class Result extends Model
     public function setPortion($value)
     {
         $this->attributes['portion'] = $value * 100;
+    }
+
+    /**
+     * @param integer $total
+     */
+    public function calculateAndSavePortion ($total)
+    {
+        $this->setPortion( $this->count / $total );
+        $this->save();
     }
 
 }

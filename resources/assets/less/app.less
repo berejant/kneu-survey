@@ -8,13 +8,13 @@
 @page-header-coefficient: 0.3;
 
 header {
-  .page-header;
+  &:extend(.page-header);
   padding-bottom: (((@line-height-computed / 2) - 1) * @page-header-coefficient);
   margin: ((@line-height-computed * 2) * @page-header-coefficient) 0 (@line-height-computed * @page-header-coefficient);
   
   .faculty-icon {
-    .pull-left;
-    .hidden-xs;
+    &:extend(.pull-left);
+    &:extend(.hidden-xs);
     background: url("/img/feu.jpg") left bottom no-repeat;
     width: 144px;
     height: 114px;
@@ -22,7 +22,7 @@ header {
 
   h1 {
     small {
-      .hidden-xs;
+      &:extend(.hidden-xs);
       display: block;
     }
   }
@@ -70,10 +70,15 @@ textarea {
     position: absolute;
     right: 0;
     bottom: 15px;
+
+    button {
+      &:extend(.btn);
+      &:extend(.btn-default);
+    }
   }
 
   .statistics {
-    .small;
+    &:extend(.small);
     position: absolute;
     right: 15px;
     top: 0;
@@ -89,13 +94,13 @@ textarea {
 
   .footer {
     .make-row();
-    .form-group;
+    &:extend(.form-group);
     margin-top: 20px;
 
     .save {
       .make-xs-column-offset(2);
-      .btn;
-      .btn-primary;
+      &:extend(.btn);
+      &:extend(.btn-primary);
     }
   }
 
@@ -108,26 +113,31 @@ textarea {
   .content {
     .make-xs-column(6);
     .make-sm-column-offset(3);
-    .text-center;
+    &:extend(.text-center);
   }
 
   .restart-form {
     .make-sm-column(3);
-    .text-right;
+    &:extend(.text-right);
   }
 
   .btn-exit {
-    .btn;
-    .btn-primary;
-    .btn-lg;
+    &:extend(.btn);
+    &:extend(.btn-primary);
+    &:extend(.btn-lg);
   }
 
   .btn-restart {
-    .btn;
-    .btn-default;
+    &:extend(.btn);
+    &:extend(.btn-default);
 
     @media (max-width: 500px) {
       margin-top: 15px;
     }
   }
 }
+
+.result_fill .result_label, .result_skip .result_label {
+  padding-left: 40px;
+}
+

@@ -25,21 +25,12 @@
                 </div>
 
                 <div class="info">
-
-                    <div class="postion">
-                    @if($teacher->position)
-                        {{$teacher->position}}
-                    @else
-                        Викладач
-                    @endif
-                    </div>
-
+                    <div class="postion">{{$teacher->position ?: 'Викладач'}}</div>
                     <h3>{{$teacher->getName()}}</h3>
-
                 </div>
 
                 <div class="skip">
-                    <button type="button" name="skip" value="1" class="btn btn-default" data-toggle="modal" data-target="#skipConfirm">
+                    <button type="button" name="skip" value="1" data-toggle="modal" data-target="#skipConfirm">
                         Пропустити викладача
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </button>

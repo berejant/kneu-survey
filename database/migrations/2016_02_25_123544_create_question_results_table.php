@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResultsTable extends Migration {
+class CreateQuestionResultsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateResultsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('results', function(Blueprint $table)
+		Schema::create('question_results', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->unsignedInteger('question_id');
@@ -23,6 +23,7 @@ class CreateResultsTable extends Migration {
 			$table->foreign('teacher_id')->references('id')->on('teachers');
 			$table->mediumInteger('academic_year')->unsigned();
 			$table->tinyInteger('semester')->unsigned();
+			$table->unsignedInteger('count');
 			$table->float('portion', 6, 3)->comment('Доля в процентах');
 			$table->timestamps();
 			$table->unique([
@@ -42,7 +43,7 @@ class CreateResultsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('results');
+		Schema::drop('question_results');
 	}
 
 }

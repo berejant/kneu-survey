@@ -27,6 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'Kneu\Survey\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'Kneu\Survey\Http\Middleware\RedirectIfAuthenticated',
+		'auth.admin' => 'Kneu\Survey\Http\Middleware\AdminAuthenticate',
 	];
 
 }

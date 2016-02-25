@@ -8,7 +8,6 @@
  * @var \Kneu\Survey\QuestionChoiceOption $choiceOption
  */
 
-$question->choiceOptions()
 ?>
 <div class="form-group">
     <label for="answers_{{$question->id}}" class="control-label">{{ $index + 1 }}. {{$question->text}}</label>
