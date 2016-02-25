@@ -34,6 +34,6 @@
                     $(this)[show ? 'show' : 'hide']();
                 });
             }
-        })
+        }).triggerHandler('change');
     </script>
 @stop
