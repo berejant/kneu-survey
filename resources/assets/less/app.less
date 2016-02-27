@@ -83,6 +83,14 @@ textarea {
     right: 15px;
     top: 0;
   }
+
+  .annotation {
+    &:extend(small);
+
+    > span {
+      margin-right: 40px;
+    }
+  }
 }
 
 .questionnaire {
@@ -169,6 +177,7 @@ header, footer, .teacher .photo, .nav-teacher-report {
   .teacher {
     padding: 0;
     margin: 0;
+    line-height: 1.3em;
 
     .info {
       padding: 0;
@@ -191,11 +200,16 @@ header, footer, .teacher .photo, .nav-teacher-report {
     font-size: 12px;
 
     > thead > tr > th,  > tbody > tr > th {
-      padding: 3px 0;
+      padding: 2px 0;
     }
 
     > tbody > tr > td {
       padding: 0;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 0;
     }
   }
 }

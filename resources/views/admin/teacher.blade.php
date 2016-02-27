@@ -53,6 +53,11 @@ function isShowResultRow(array $resultsBySemesters)
 
         <h3>{{$teacher->getName()}}</h3>
 
+        <div class="annotation">
+            <span>Курс: {{$teacher->courses}};</span>
+            <span>Дисципліна: {{$teacher->disciplines}}</span>
+        </div>
+
     </div>
 </legend>
 

@@ -24,7 +24,8 @@ class Teacher extends Model
     protected $fillable = [
         'id',
         'first_name', 'middle_name', 'last_name',
-        'position', 'link', 'photo', 'department_name'
+        'position', 'link', 'photo',
+        'department_name', 'disciplines', 'courses'
     ];
 
     public $incrementing = false;

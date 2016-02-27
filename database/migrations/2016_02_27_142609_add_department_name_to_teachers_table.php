@@ -15,6 +15,8 @@ class AddDepartmentNameToTeachersTable extends Migration {
 		Schema::table('teachers', function(Blueprint $table)
 		{
 			$table->text('department_name')->after('photo');
+			$table->text('disciplines')->after('department_name');
+			$table->text('courses')->after('disciplines');
 		});
 	}
 
@@ -28,6 +30,8 @@ class AddDepartmentNameToTeachersTable extends Migration {
 		Schema::table('teachers', function(Blueprint $table)
 		{
 			$table->dropColumn('department_name');
+			$table->dropColumn('disciplines');
+			$table->dropColumn('courses');
 		});
 	}
 
