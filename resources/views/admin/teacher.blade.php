@@ -8,6 +8,8 @@
  * @var \Kneu\Survey\Answer $answer
  */
 
+use Illuminate\Support\Str;
+
 /**
  * Определяет, отображать ли строку с результатами. Отображать - если есть ненулыевые результаты за семестр
  * @param array $resultsBySemesters
@@ -47,7 +49,7 @@ function isShowResultRow(array $resultsBySemesters)
 
     <div class="info">
 
-        <div class="position">{{$teacher->position ?: 'Викладач'}}</div>
+        <div class="position">Кафедра {{ Str::lower($teacher->department_name) }}, {{$teacher->position ?: 'Викладач'}} </div>
 
         <h3>{{$teacher->getName()}}</h3>
 

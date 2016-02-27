@@ -21,7 +21,11 @@ class Teacher extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['id', 'first_name', 'middle_name', 'last_name', 'position', 'link', 'photo'];
+    protected $fillable = [
+        'id',
+        'first_name', 'middle_name', 'last_name',
+        'position', 'link', 'photo', 'department_name'
+    ];
 
     public $incrementing = false;
 
