@@ -195,5 +195,8 @@ return [
 
 	],
 
-	'exitUrl' => 'http://feu.kneu.edu.ua/'
+	'exitUrl' => 'http://feu.kneu.edu.ua/',
+
+	'ReportShowIconOkFromLevel' => env('REPORT_SHOW_ICON_OK_FROM_LEVEL', 80),
+
 ];

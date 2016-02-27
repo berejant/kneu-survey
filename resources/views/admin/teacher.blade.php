@@ -127,7 +127,7 @@ function isShowResultRow(array $resultsBySemesters)
                         <td @if($result->portion > 50) class="success" @endif>
                             {{ number_format($result->portion, 0) }}
 
-                            @if($result->portion >= 90)
+                            @if($result->portion >= config('app.ReportShowIconOkFromLevel'))
                                 <i class="glyphicon glyphicon-ok"></i>
                             @endif
                         </td>
