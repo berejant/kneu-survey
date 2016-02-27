@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class QuestionnaireResult
  * @package Kneu\Survey
+ * @property int $id
+ * @property integer $count
+ * @property float $portion
  */
 class TeacherResult extends Model
 {

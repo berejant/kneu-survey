@@ -141,3 +141,63 @@ textarea {
   padding-left: 40px;
 }
 
+/**
+  Отчет по преподователям
+*/
+
+.teacher-report {
+  &:extend(.table all);
+  &:extend(.table-hover all);
+}
+
+.nav-teacher-report {
+  .make-row();
+
+  > div {
+    .make-xs-column(6);
+  }
+}
+
+/**
+  Скрываем некоторые элементы при печати
+*/
+header, footer, .teacher .photo, .nav-teacher-report {
+  &:extend(.hidden-print);
+}
+
+@media print {
+  .teacher {
+    padding: 0;
+    margin: 0;
+
+    .info {
+      padding: 0;
+
+      .position {
+        display: inline;
+      }
+
+      h3 {
+        font-size: @font-size-h5;
+        display: inline-block;
+        margin: 0;
+      }
+    }
+
+  }
+
+  .teacher-report {
+    .table-condensed;
+    font-size: 12px;
+
+    > thead > tr > th,  > tbody > tr > th {
+      padding: 3px 0;
+    }
+
+    > tbody > tr > td {
+      padding: 0;
+    }
+  }
+}
+
+

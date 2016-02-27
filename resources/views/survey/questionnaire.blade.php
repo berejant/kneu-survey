@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="info">
-                    <div class="postion">{{$teacher->position ?: 'Викладач'}}</div>
+                    <div class="position">{{$teacher->position ?: 'Викладач'}}</div>
                     <h3>{{$teacher->getName()}}</h3>
                 </div>
 

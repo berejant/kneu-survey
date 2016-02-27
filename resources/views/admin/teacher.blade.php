@@ -7,6 +7,24 @@
  * @var \Kneu\Survey\Result $result
  * @var \Kneu\Survey\Answer $answer
  */
+
+/**
+ * Определяет, отображать ли строку с результатами. Отображать - если есть ненулыевые результаты за семестр
+ * @param array $resultsBySemesters
+ * @return bool
+ */
+function isShowResultRow(array $resultsBySemesters)
+{
+    /** @var \Kneu\Survey\QuestionResult $result */
+    foreach($resultsBySemesters as $result) {
+        if($result->count) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 ?>
 @extends('layouts.main')
 
@@ -29,29 +47,29 @@
 
     <div class="info">
 
-        <div class="postion">{{$teacher->position ?: 'Викладач'}}</div>
+        <div class="position">{{$teacher->position ?: 'Викладач'}}</div>
 
         <h3>{{$teacher->getName()}}</h3>
 
     </div>
 </legend>
 
-<div class="row">
-    <div class="col-xs-6">
+<nav class="nav-teacher-report">
+    <div>
         <a href="{{URL::route('admin.list')}}" class="btn btn-default" onclick="document.referrer===this.href?history.back():null;">
             <i class="glyphicon glyphicon-arrow-left"></i>
             Назад до списку
         </a>
     </div>
 
-    <div class="col-xs-6 text-right">
+    <div class="text-right">
         Доля обраних відповідей,<br />
         у % від загальної кількості відповідей на запитання
     </div>
-</div>
+</nav>
 
 
-<table class="table table-hover">
+<table class="teacher-report">
     <thead>
         <tr>
             <th class="text-right">Семестр:</th>
@@ -93,7 +111,7 @@
             </tr>
 
             @foreach($question->choiceOptions as $choiceOption)
-                <tr>
+                <tr @if(!isShowResultRow($results[$choiceOption->id])) class="hidden-print" @endif>
                     <td>{{$choiceOption->text}}</td>
 
                     @foreach($semesters as $semesterKey=>$semester)
@@ -110,7 +128,7 @@
                 </tr>
             @endforeach
 
-            <tr>
+            <tr @if(!isShowResultRow($results['null'])) class="hidden-print" @endif>
                 <td>Не надали відповідь</td>
 
                 @foreach($semesters as $semesterKey=>$semester)
