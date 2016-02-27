@@ -100,7 +100,7 @@ function isShowResultRow(array $resultsBySemesters)
     <tbody>
         @foreach($teacherResults as $results)
             <?php $result = reset($results); ?>
-            <tr class="result_{{ $result->type }}">
+            <tr class="result_{{ $result->type }} @if(!isShowResultRow($results))hidden-print @endif">
                 <td class="result_label">{{ $result->getTypeText() }}</td>
 
                 @foreach($semesters as $semesterKey => $semester)
