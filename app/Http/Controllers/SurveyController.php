@@ -51,7 +51,7 @@ class SurveyController extends Controller {
 	{
 		$student = $this->student;
 		/** @var Questionnaire $questionnaire */
-		$questionnaire = $student->questionnaires()->where('teacher_id', '=', $teacher->id)->first();
+		$questionnaire = $student->questionnairesForSemester()->where('teacher_id', '=', $teacher->id)->first();
 
 		$questions = Question::all();
 		$answers = $questionnaire->answers->keyBy('question_id');
