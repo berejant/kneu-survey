@@ -70,10 +70,10 @@ class Student extends Model
 
         // если нам не передано is_completed = false -> то проверяем по анкетам-потомкам
         if ($this->is_completed) {
-            $this->load('questionnaires');
+            $questionnaires = $this->questionnairesForSemester()->get();
 
             /** @var Questionnaire $questionnaire */
-            foreach ($this->questionnaires as $questionnaire) {
+            foreach ($questionnaires as $questionnaire) {
                 if (!$questionnaire->is_completed) {
                     $this->is_completed = false;
                     break;
