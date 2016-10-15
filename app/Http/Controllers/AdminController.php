@@ -168,7 +168,7 @@ class AdminController extends Controller
                 $selectedSemester = reset($answer['semesters']);
                 foreach ($answer['semesters'] as $semester) {
                     $key = $semester['year'] . '-' . $semester['number'];
-                    if($selectedSemesterKey === $semester) {
+                    if($selectedSemesterKey === $key) {
                         $selectedSemester = $semester;
                         break;
                     }
