@@ -220,6 +220,12 @@ class AdminController extends Controller
             Artisan::call('import');
         }
 
+        try {
+            $app->make('JournalApiClient')->get('sync.php');
+        } catch(\Exception $e) {
+            // ошибки не важны - задача если че по cron-у запустится
+        }
+
         return $redirect;
     }
 }
