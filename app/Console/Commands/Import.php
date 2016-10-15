@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Kneu\Survey\Questionnaire;
 use Kneu\Survey\Student;
 use Kneu\Survey\Teacher;
+use \Illuminate\Contracts\Foundation\Application;
 
 class Import extends Command
 {
@@ -23,7 +24,7 @@ class Import extends Command
      *
      * @var string
      */
-    protected $description = 'Импортировать данные из приложения "Електронный журнал КНЭУ.';
+    protected $description = 'Импортировать данные из приложения "Електронный журнал КНЭУ."';
 
     /**
      * @var \GuzzleHttp\Client
@@ -51,18 +52,9 @@ class Import extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function fire(Application $app)
     {
-        $this->client = new \GuzzleHttp\Client([
-            'verify' => true,
-            'connect_timeout' => 5,
-            'timeout' => 15,
-            'base_uri' => Config::get('journalApi.url'),
-            'auth' => [
-                Config::get('journalApi.login'),
-                Config::get('journalApi.password')
-            ],
-        ]);
+        $this->client = $app->make('JournalApiClient');
 
         $this->startDatetime = Carbon::now();
 
@@ -77,7 +69,7 @@ class Import extends Command
     {
         $this->info('Import teachers start...');
 
-        $response = $this->client->get('teachers.json');
+        $response = $this->client->post('teachers.json');
 
         foreach (json_decode($response->getBody(), true) as $item) {
             /** @var Teacher $teacher */
@@ -102,7 +94,7 @@ class Import extends Command
     {
         $this->info('Import students start...');
 
-        $response = $this->client->get('students.json');
+        $response = $this->client->post('students.json');
 
         $answer = json_decode($response->getBody(), true);
 
@@ -125,6 +117,8 @@ class Import extends Command
                     'rating' => $teacherItem['rating'],
                 ])->save();
             }
+
+            $student->checkIsCompleted();
         }
 
         $this->info('Import students complete.');

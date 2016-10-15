@@ -10,6 +10,17 @@
 
 @section('content')
 
+    <style>
+        .links a {
+            margin-right: 15px;
+        }
+    </style>
+
+    <div class="text-right links">
+        <a href="{{URL::route('admin.launchStatus')}}" class="btn btn-default">Запуск анкетування</a>
+        <a href="https://kneu.edu.ua/journal/survey/stat/completedByGroups.php" class="btn btn-default">Статистика по групам</a>
+    </div>
+
     <input type="text" class="form-control" id="filter" placeholder="Фільтрувати">
 
     <div class="list-group" id="list">

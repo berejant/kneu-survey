@@ -63,7 +63,7 @@ function isShowResultRow(array $resultsBySemesters)
 
 <nav class="nav-teacher-report">
     <div>
-        <a href="{{URL::route('admin.list')}}" class="btn btn-default" onclick="document.referrer===this.href?history.back():null;">
+        <a href="{{URL::route('admin.list')}}" class="btn btn-default" onclick="document.referrer===this.href && history.back()">
             <i class="glyphicon glyphicon-arrow-left"></i>
             Назад до списку
         </a>

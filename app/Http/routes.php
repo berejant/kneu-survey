@@ -11,6 +11,20 @@
 |
 */
 
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function()
+{
+    Route::get('/', ['as' => 'admin.list', 'uses' => 'AdminController@showList']);
+
+    Route::get('/teacher/{teacher}', ['as' => 'admin.teacher', 'uses' => 'AdminController@teacher'])
+        ->where('teacher', '[0-9]+');
+
+    Route::get('/launch', ['as' => 'admin.launchStatus', 'uses' => 'AdminController@launchStatus']);
+    Route::post('/launch', ['as' => 'admin.launchChangeStatus', 'uses' => 'AdminController@launchChangeStatus']);
+    Route::get('/launch/finish', ['as' => 'admin.launchChangeStatusFinish', 'uses' => 'AdminController@launchChangeStatusFinish']);
+});
+
+
 Route::get('/{student}/{secret}/', [
     'as' => 'survey.auth', 'uses' => 'StudentController@auth'
 ]);
@@ -35,14 +49,4 @@ Route::post('/restart', [
     'as' => 'survey.restart', 'uses' => 'SurveyController@restart'
 ]);
 
-
 Route::get('/studentsCompleted.json', 'StudentController@completedJson');
-
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function()
-{
-    Route::get('/', [ 'as' => 'admin.list', 'uses' => 'AdminController@showList' ]);
-
-    Route::get('/teacher/{teacher}', [ 'as' => 'admin.teacher', 'uses' => 'AdminController@teacher' ])
-        ->where('teacher', '[0-9]+');
-
-});
