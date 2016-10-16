@@ -78,7 +78,11 @@ class Import extends Command
                 $teacher = new Teacher;
             }
 
+            $disciplines = $teacher->disciplines;
             $teacher->fill($item);
+            if(!$teacher->disciplines) {
+                $teacher->disciplines = $disciplines;
+            }
             if (starts_with($teacher->photo, 'http://')) {
                 $teacher->photo = substr($teacher->photo, 5);
             }
