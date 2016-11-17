@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Kneu\Survey\Answer;
 use Kneu\Survey\Question;
 use Kneu\Survey\Result;
 use Kneu\Survey\Teacher;
@@ -83,15 +84,23 @@ class AdminController extends Controller
         /** @var Question $question */
         foreach($textQuestions as $index => $question)
         {
-            $textAnswers[ $question->id ] = $question->answers()->whereExists(function ($query) use($teacher) {
-                $query->select(DB::raw(1))
-                    ->from('questionnaires')
-                    ->whereRaw('questionnaires.id = answers.questionnaire_id')
-                    ->whereTeacherId($teacher->id);
-            })->get();
+            $_answers = $question->answers()
+                ->with('questionnaire')
+                ->whereHas('questionnaire', function($query) use ($teacher) {
+                    $query->whereTeacherId($teacher->id);
+                })
+                ->get();
 
-            if(!count($textAnswers[ $question->id ])) {
-                unset( $textQuestions[$index], $textAnswers[ $question->id ] );
+            $textAnswers[$question->id] = [];
+
+            /** @var Answer $answer */
+            foreach ($_answers as $answer) {
+                $semesterKey = $answer->questionnaire->academic_year . '-' . $answer->questionnaire->semester;
+                $textAnswers[$question->id][$semesterKey][] = $answer;
+            }
+
+            if (!$textAnswers[$question->id]) {
+                unset($textQuestions[$index], $textAnswers[$question->id]);
             }
         }
 

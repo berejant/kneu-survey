@@ -149,18 +149,22 @@ function isShowResultRow(array $resultsBySemesters)
 
 
         @foreach($textQuestions as $question)
-            <?php $answers = $textAnswers[ $question->id ]; ?>
+            <?php $answers = $textAnswers[$question->id]; ?>
             <tr class="active">
                 <th colspan="{{ $questionColspan }}">{{$question->text}}</th>
             </tr>
 
             <tr>
                 <td colspan="{{ $questionColspan }}">
-                    <ol>
-                    @foreach($answers as $answer)
-                        <li>{{$answer->text}}</li>
+                    @foreach($answers as $semesterKey => $semesterAnswers)
+                        <?php $semester = $semesters[$semesterKey]; ?>
+                        <h5>{{ $semester->academic_year }}-{{ $semester->academic_year + 1 }} / {{ $semester->semester }}</h5>
+                        <ol>
+                        @foreach($semesterAnswers as $answer)
+                            <li>{{$answer->text}}</li>
+                        @endforeach
+                        </ol>
                     @endforeach
-                    </ol>
                 </td>
             </tr>
         @endforeach
