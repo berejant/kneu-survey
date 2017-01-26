@@ -20,7 +20,7 @@ class SurveyController extends Controller {
 	/**
 	 * SurveyController constructor.
 	 * @param Request $request
-     */
+         */
 	public function __construct(Request $request)
 	{
 		if( $studentId = $request->session()->get('studentId') ) {
