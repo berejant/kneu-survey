@@ -12,123 +12,123 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SurveyController extends Controller {
 
-	/**
-	 * @var Student
-	 */
-	protected $student;
-
-	/**
-	 * SurveyController constructor.
-	 * @param Request $request
+    /**
+     * @var Student
      */
-	public function __construct(Request $request)
-	{
-		if( $studentId = $request->session()->get('studentId') ) {
-			$this->student = Student::find($studentId);
-		}
+    protected $student;
 
-		if(!$this->student) {
-			abort(401);
-		}
-	}
+    /**
+     * SurveyController constructor.
+     * @param Request $request
+         */
+    public function __construct(Request $request)
+    {
+        if( $studentId = $request->session()->get('studentId') ) {
+            $this->student = Student::find($studentId);
+        }
 
-	/**
-	 * @return Response
-	 */
-	public function start()
-	{
-		if($this->student->is_completed) {
-			return redirect()->route('survey.finish');
-		}
+        if(!$this->student) {
+            abort(401);
+        }
+    }
 
-		return view('survey.index', [
-			'student' => $this->student,
-			'questionnaireUrl' => $this->getNextQuestionnaireUrl(),
-		]);
-	}
+    /**
+     * @return Response
+     */
+    public function start()
+    {
+        if($this->student->is_completed) {
+            return redirect()->route('survey.finish');
+        }
 
-	public function questionnaire (Teacher $teacher)
-	{
-		$student = $this->student;
-		/** @var Questionnaire $questionnaire */
-		$questionnaire = $student->questionnairesForSemester()->where('teacher_id', '=', $teacher->id)->first();
+        return view('survey.index', [
+            'student' => $this->student,
+            'questionnaireUrl' => $this->getNextQuestionnaireUrl(),
+        ]);
+    }
 
-		$questions = Question::all();
-		$answers = $questionnaire->answers->keyBy('question_id');
-		$statistics = $student->getSurveyStatistics();
+    public function questionnaire (Teacher $teacher)
+    {
+        $student = $this->student;
+        /** @var Questionnaire $questionnaire */
+        $questionnaire = $student->questionnairesForSemester()->where('teacher_id', '=', $teacher->id)->first();
 
-		return view(
-			'survey.questionnaire',
-			compact('questionnaire', 'teacher', 'student', 'questions', 'answers', 'statistics')
-		);
-	}
+        $questions = Question::all();
+        $answers = $questionnaire->answers->keyBy('question_id');
+        $statistics = $student->getSurveyStatistics();
 
-	public function saveQuestionnaire(Request $request)
-	{
-		/** @var Questionnaire $questionnaire */
-		$questionnaire = $this->student->questionnaires()->find($request->input('questionnaire_id'));
+        return view(
+            'survey.questionnaire',
+            compact('questionnaire', 'teacher', 'student', 'questions', 'answers', 'statistics')
+        );
+    }
 
-		if(!$questionnaire) {
-			abort(402);
-		}
+    public function saveQuestionnaire(Request $request)
+    {
+        /** @var Questionnaire $questionnaire */
+        $questionnaire = $this->student->questionnaires()->find($request->input('questionnaire_id'));
 
-		if($request->input('skip', false)) {
-			$questionnaire->is_completed = true;
+        if(!$questionnaire) {
+            abort(402);
+        }
 
-		} else {
+        if($request->input('skip', false)) {
+            $questionnaire->is_completed = true;
 
-			$savedAnswersCount = 0;
+        } else {
 
-			/** @var Question $question */
-			foreach (Question::all() as $question) {
-				$answerValue = $request->input('answers.' . $question->id);
+            $savedAnswersCount = 0;
 
-				$status = Answer::firstOrNew([
-					'questionnaire_id' => $questionnaire->id,
-					'question_id' => $question->id,
-				])->saveValue($answerValue);
+            /** @var Question $question */
+            foreach (Question::all() as $question) {
+                $answerValue = $request->input('answers.' . $question->id);
 
-				if ($status) {
-					$savedAnswersCount++;
-				}
-			}
+                $status = Answer::firstOrNew([
+                    'questionnaire_id' => $questionnaire->id,
+                    'question_id' => $question->id,
+                ])->saveValue($answerValue);
 
-			if($savedAnswersCount) {
-				$questionnaire->is_completed = true;
-			}
-		}
+                if ($status) {
+                    $savedAnswersCount++;
+                }
+            }
 
-		$questionnaire->save();
+            if($savedAnswersCount) {
+                $questionnaire->is_completed = true;
+            }
+        }
 
-		return redirect($this->getNextQuestionnaireUrl());
-	}
+        $questionnaire->save();
 
-	public function finish()
-	{
-		return view('survey.finish');
-	}
+        return redirect($this->getNextQuestionnaireUrl());
+    }
 
-	public function restart(Request $request)
-	{
-		if($request->input('restart')) {
-			/** @var Questionnaire $questionnaire */
-			foreach($this->student->questionnairesForSemester as $questionnaire)
-			{
-				$questionnaire->is_completed = false;
-				$questionnaire->save();
-			}
-		}
+    public function finish()
+    {
+        return view('survey.finish');
+    }
 
-		return redirect($this->getNextQuestionnaireUrl());
-	}
+    public function restart(Request $request)
+    {
+        if($request->input('restart')) {
+            /** @var Questionnaire $questionnaire */
+            foreach($this->student->questionnairesForSemester as $questionnaire)
+            {
+                $questionnaire->is_completed = false;
+                $questionnaire->save();
+            }
+        }
 
-	protected function getNextQuestionnaireUrl () {
-		$questionnaire = $this->student->getFirstNotCompletedQuestionnaire();
+        return redirect($this->getNextQuestionnaireUrl());
+    }
 
-		if($questionnaire) {
-			return URL::route('survey.questionnaire', [$questionnaire->teacher]);
-		} else {
-			return URL::route('survey.finish');
-		}
-	}
+    protected function getNextQuestionnaireUrl () {
+        $questionnaire = $this->student->getFirstNotCompletedQuestionnaire();
+
+        if($questionnaire) {
+            return URL::route('survey.questionnaire', [$questionnaire->teacher]);
+        } else {
+            return URL::route('survey.finish');
+        }
+    }
 }
