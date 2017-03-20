@@ -122,6 +122,7 @@ function isShowResultRow(array $resultsBySemesters)
                     <td>{{$choiceOption->text}}</td>
 
                     @foreach($semesters as $semesterKey=>$semester)
+                        @if(isset($results[$choiceOption->id][$semesterKey]))
                         <?php $result = $results[$choiceOption->id][$semesterKey]; ?>
                         <td @if($result->portion > 50) class="success" @endif>{{$result->count}}</td>
                         <td @if($result->portion > 50) class="success" @endif>
@@ -131,6 +132,9 @@ function isShowResultRow(array $resultsBySemesters)
                                 <i class="glyphicon glyphicon-ok"></i>
                             @endif
                         </td>
+                        @else
+                        <td colspan="2"></td>
+                        @endif
                     @endforeach
                 </tr>
             @endforeach
@@ -139,9 +143,13 @@ function isShowResultRow(array $resultsBySemesters)
                 <td>Не надали відповідь</td>
 
                 @foreach($semesters as $semesterKey=>$semester)
+                    @if(isset($results['null'][$semesterKey]))
                     <?php $result = $results['null'][$semesterKey]; ?>
                     <td>{{$result->count}}</td>
                     <td>{{ number_format($result->portion, 0) }}</td>
+                    @else
+                    <td colspan="2"></td>
+                    @endif
                 @endforeach
             </tr>
 

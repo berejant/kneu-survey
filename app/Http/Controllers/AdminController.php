@@ -58,6 +58,15 @@ class AdminController extends Controller
         }
         ksort($semesters);
 
+        foreach($teacherResults['skip'] as $semesterKey => $skipResult)
+        {
+            // не выводить столбик по семестру, если анкет менее 5 штук и все отказались запонялть анкету.
+            if($skipResult->count <= 5 && $skipResult->portion == 100) {
+                unset($semesters[$semesterKey]);
+            }
+        }
+
+
         /** @var QuestionResult $result */
         foreach($teacher->questionResults as $result)
         {
